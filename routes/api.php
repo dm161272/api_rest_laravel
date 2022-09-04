@@ -3,6 +3,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\PlayerController;
 
@@ -26,6 +27,21 @@ percentage of success.
 
 */
 
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+
+
+
+//PROTECTED ROUTES
+Route::group(['middleware' => ['auth:sanctum']], function () {
+
+//Logout user
+Route::post('/logout', [AuthController::class, 'logout']);
+
+//5.
+Route::get('/players', [PlayerController::class, 'index']);
+
 //8.
 Route::get('/players/ranking/loser', [PlayerController::class, 'loser']);
 
@@ -34,9 +50,6 @@ Route::get('/players/ranking/winner', [PlayerController::class, 'winner']);
 
 //7.
 Route::get('/players/ranking', [PlayerController::class, 'rank']);
-
-//5.
-Route::get('/players', [PlayerController::class, 'index']);
 
 //1.
 Route::post('/players', [PlayerController::class, 'store']);
@@ -53,9 +66,16 @@ Route::post('/players/{id}/games', [GameController::class, 'store']);
 //4.
 Route::delete('/players/{id}/games', [GameController::class, 'destroy']);
 
+});
 
 
+
+
+
+/*
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+*/
