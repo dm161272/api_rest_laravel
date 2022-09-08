@@ -3,9 +3,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\GameController;
-use App\Http\Controllers\PlayerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,10 +25,11 @@ That is, the average percentage of successes.
 percentage of success.
 
 */
+//1.
+Route::post('/players', [UserController::class, 'store']);
 
-Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
-
+//Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
 
 
 
@@ -37,28 +37,29 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => ['auth:sanctum']], function () {
 
 //Logout user
-Route::post('/logout', [AuthController::class, 'logout']);
+Route::post('/logout', [UserController::class, 'logout']);
+
+//Logout player
+Route::post('/players/logout', [UserController::class, 'logout']);
 
 //5.
-Route::get('/players', [PlayerController::class, 'index']);
+Route::get('/players', [UserController::class, 'index']);
 
 //8.
-Route::get('/players/ranking/loser', [PlayerController::class, 'loser']);
+Route::get('/players/ranking/loser', [UserController::class, 'loser']);
 
 //9.
-Route::get('/players/ranking/winner', [PlayerController::class, 'winner']);
+Route::get('/players/ranking/winner', [UserController::class, 'winner']);
 
 //7.
-Route::get('/players/ranking', [PlayerController::class, 'rank']);
+Route::get('/players/ranking', [UserController::class, 'rank']);
 
-//1.
-Route::post('/players', [PlayerController::class, 'store']);
 
 //6.
-Route::get('/players/{id}', [PlayerController::class, 'show']);
+Route::get('/players/{id}', [UserController::class, 'show']);
 
 //2.
-Route::put('/players/{id}', [PlayerController::class, 'update']);
+Route::put('/players/{id}', [UserController::class, 'update']);
 
 //3.
 Route::post('/players/{id}/games', [GameController::class, 'store']);
