@@ -75,22 +75,15 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {  
-       /*  $request->validate(['email' => 'required']);
-        $user = User::create($request->all());
-        if($user->name == NULL) {
-        $user->update(array('name' => 'Anonymous_' . $user->id));
-        }
-        Game::create(['user_id' => $user['id']]);
-        return $user; */
-
         $fields = $request->validate([
             'name' => 'string',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'role' => 'required|string'
         ]);
 
         if(!isset($fields['name'])) {
-        $user = User::create([
+           $user = User::create([
             'email' => $fields['email'],
             'password' => bcrypt($fields['password'])
         ]);
@@ -104,6 +97,8 @@ class UserController extends Controller
         'email' => $fields['email'],
         'password' => bcrypt($fields['password'])
         ]);}
+
+        $user->assignRole($fields['role']);
 
         Game::create(['user_id' => $user['id']]);
 
