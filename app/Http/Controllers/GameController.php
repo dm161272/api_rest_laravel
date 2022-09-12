@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
 
 class GameController extends Controller
 {
@@ -74,7 +76,9 @@ class GameController extends Controller
      */
     public function destroy($user_id)
     {
-    if(auth('sanctum')->user()->id == $user_id) {
+    //dd(auth()->user()->roles[0]['name']);
+    if(auth('sanctum')->user()->id == $user_id ||
+    auth()->user()->roles[0]['name'] == 'admin') {
      $id = Game::select('id')
      ->where('user_id', '=', $user_id)
      ->update(array('win' => 0, 'lose' => 0));
