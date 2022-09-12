@@ -26,6 +26,10 @@ percentage of success.
 
 */
 
+//1.POST /players : Create a player.
+Route::post('/players', [UserController::class, 'store'])
+->name('players.store');
+
   Route::post('/login', [UserController::class, 'login'])
 ->name('login');
 
@@ -33,10 +37,6 @@ percentage of success.
 //PROTECTED ROUTES
 Route::group(['middleware' => ['auth:sanctum']], function() {
 
-//1.POST /players : Create a player.
-Route::post('/players', [UserController::class, 'store'])
-->middleware('players.store')
-->name('players.store');
 
 //Logout user
 Route::post('/logout', [UserController::class, 'logout'])
