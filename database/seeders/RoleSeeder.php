@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         /*
-        Admin => all
+        Admin => all but play game
         Player => play, view personal statistics, delete personal results
         */
 

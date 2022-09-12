@@ -145,7 +145,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
        if(auth('sanctum')->user()->id == $id || 
-       auth('sanctum')->user()->role == 'admin') {
+       auth()->user()->roles[0]['name'] == 'admin') {
         $user = User::find($id);
         $user->update($request->all('name'));
         return $user;}
