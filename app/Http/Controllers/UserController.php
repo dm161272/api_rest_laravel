@@ -121,10 +121,18 @@ class UserController extends Controller
      */
     public function show($id)
     {  
+       if(auth('sanctum')->user()->id == $id || 
+       auth('sanctum')->user()->role == 'admin') {
         return User::select('users.id', 'users.name', 'games.win', 'games.lose')
         ->where('users.id', $id)
         ->leftJoin('games', 'games.user_id', 'users.id')
-        ->get();
+        ->get();} 
+        else 
+        {
+            return response ([
+                'message' => 'Not authorized'], 401);
+
+        }
     }
 
     /**
@@ -136,9 +144,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+       if(auth('sanctum')->user()->id == $id || 
+       auth('sanctum')->user()->role == 'admin') {
         $user = User::find($id);
         $user->update($request->all('name'));
-        return $user;
+        return $user;}
+        else
+        {
+            return response ([
+            'message' => 'Not authorized'], 401);
+
+        }
+
 
     }
 
@@ -165,7 +182,7 @@ class UserController extends Controller
         return response($response, 201);
     }
 
-    public function logout(Request $request) {
+    public function logout() {
         auth()->user()->tokens()->delete();
 
         return [

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -16,34 +17,52 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-      /*  User::create([
+       $user = User::create([
 
             'name' => 'admin',
             'email' => 'admin@admin.net',
             'email_verified_at' => now(),
-            'password' => '123456', // password
+            'password' => bcrypt('123456'), // password
             'remember_token' => Str::random(10),
             
         ])->assignRole('admin');
 
-        User::create([
+        Game::create(['user_id' => $user['id']]);
+
+        $user = User::create([
 
             'name' => 'Player1',
-            'email' => 'player_1@admin.net',
+            'email' => 'p1@admin.net',
             'email_verified_at' => now(),
-            'password' => '123456', // password
+            'password' => bcrypt('123456'), // password
             'remember_token' => Str::random(10),
 
         ])->assignRole('player');
 
-        User::create([
+        Game::create(['user_id' => $user['id']]);
+
+        $user = User::create([
 
             'name' => 'Player2',
-            'email' => 'player_2@admin.net',
+            'email' => 'p2@admin.net',
             'email_verified_at' => now(),
-            'password' => '123456', // password
+            'password' => bcrypt('123456'), // password
             'remember_token' => Str::random(10),
 
-        ])->assignRole('player');*/
+        ])->assignRole('player');
+
+        Game::create(['user_id' => $user['id']]);
+        
+        $user = User::create([
+
+            'name' => 'Player3',
+            'email' => 'p3@admin.net',
+            'email_verified_at' => now(),
+            'password' => bcrypt('123456'), // password
+            'remember_token' => Str::random(10),
+
+        ])->assignRole('player');
+
+        Game::create(['user_id' => $user['id']]);
     }
 }

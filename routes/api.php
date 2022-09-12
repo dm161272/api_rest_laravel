@@ -51,23 +51,31 @@ Route::get('/players', [UserController::class, 'index'])
 
 /*8.GET /players/ranking/loser: returns the player with the worst success rate.*/
 Route::get('/players/ranking/loser', [UserController::class, 'loser'])
+->middleware('can:players.loser')
 ->name('players.loser');
 
 /*9.GET /players/ranking/winner: returns the player with the best 
 percentage of success.*/
 Route::get('/players/ranking/winner', [UserController::class, 'winner'])
+->middleware('can:players.winner')
 ->name('players.winner');
 
 /*7. GET /players/ranking: returns the average ranking of all players in the system.
 That is, the average percentage of successes.*/
-Route::get('/players/ranking', [UserController::class, 'rank'])->name('players.ranks');
+Route::get('/players/ranking', [UserController::class, 'rank'])
+->middleware('can:players.ranks')
+->name('players.ranks');
 
 
 /*6.GET /players/{id}/games: returns the list of games for a player.*/
-Route::get('/players/{id}', [UserController::class, 'show'])->name('games.list');
+Route::get('/players/{id}', [UserController::class, 'show'])
+->middleware('can:games.list')
+->name('games.list');
 
 /*2.PUT /players/{id} : modifies the name of the player.*/
-Route::put('/players/{id}', [UserController::class, 'update'])->name('players.update');
+Route::put('/players/{id}', [UserController::class, 'update'])
+->middleware('can:players.update')
+->name('players.update');
 
 /*3.POST /players/{id}/games/ : A specific player rolls the dice.*/
 Route::post('/players/{id}/games', [GameController::class, 'store'])
@@ -76,6 +84,7 @@ Route::post('/players/{id}/games', [GameController::class, 'store'])
 
 /*4.DELETE /players/{id}/games: deletes the player's rolls.*/
 Route::delete('/players/{id}/games', [GameController::class, 'destroy'])
+->middleware('can:games.delete')
 ->name('games.delete');
 
 //Route::resource('users');
