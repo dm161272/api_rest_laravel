@@ -14,47 +14,39 @@ class AuthTest extends TestCase
     
     public function test_new_users_can_register()
     {
-        $user = User::factory()->create();
-                $user->assignRole('player');
-                
-        //dd($user->email);
-        $response = $this->post('/api/players/', [
+       $user = User::factory()->make();
+       $response = $this->post('/api/players/', [
+            'name' => $user->name,
             'email' => $user->email,
             'password' => $user->password,
             'password_confirmation' => $user->password,
-            'role' => $user->roles[0]['name']
+            'role' => 'player'
         ]);
-
-        Game::create(['user_id' => $user['id']]);
-        //$this->assertAuthenticated();
-        //$this->withoutExceptionHandling();
-        $response->assertStatus(201);
- 
+       $response->assertStatus(201);
     }
 
     public function test_user_login()
-    {
+    {   
+        //$this->withoutMiddleware();
+
         $response = $this->post('/api/login', [
             'email' => 'admin@admin.net',
             'password' => '123456',
         ]);
 
-        //$this->assertAuthenticated();
-        //$this->withoutExceptionHandling();
         $response->assertStatus(201);
  
     }
 
-    /* public function test_user_logout()
+    public function test_user_logout()
     {
         $response = $this->post('/api/logout');
 
-
-        $this->withoutExceptionHandling();
-        //$this->assertAuthenticated();
+       // $this->withoutExceptionHandling();
+       // $this->assertAuthenticated();
         $response->assertStatus(200);
  
-    } */
+    }  
 }
 
 
