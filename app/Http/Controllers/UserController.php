@@ -122,7 +122,7 @@ class UserController extends Controller
     public function show($id)
     {  
        if(auth('sanctum')->user()->id == $id || 
-       auth('sanctum')->user()->role == 'admin') {
+       auth('sanctum')->user()->roles[0]['name'] == 'admin') {
         return User::select('users.id', 'users.name', 'games.win', 'games.lose')
         ->where('users.id', $id)
         ->leftJoin('games', 'games.user_id', 'users.id')
