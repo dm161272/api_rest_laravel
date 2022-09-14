@@ -11,7 +11,6 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class AuthTest extends TestCase
 {
     
-    
     public function test_new_users_can_register()
     {
        $user = User::factory()->make();
@@ -25,28 +24,26 @@ class AuthTest extends TestCase
        $response->assertStatus(201);
     }
 
+
     public function test_user_login()
     {   
-        //$this->withoutMiddleware();
-
         $response = $this->post('/api/login', [
             'email' => 'admin@admin.net',
             'password' => '123456',
-        ]);
-
+        ]);  
         $response->assertStatus(201);
- 
+        return $token = ($response->json(['token']));
     }
 
-    public function test_user_logout()
-    {
-        $response = $this->post('/api/logout');
+    /**
+     * @depends test_user_login
+     */
 
-       // $this->withoutExceptionHandling();
-       // $this->assertAuthenticated();
-        $response->assertStatus(200);
- 
+    public function test_user_logout($token)
+    {
+       $response = $this->withHeader('Authorization', 'Bearer ' . $token)->post('/api/logout');
+       //dd($response);
+       $response->assertStatus(200);
     }  
 }
-
 
