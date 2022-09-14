@@ -32,6 +32,7 @@ class AuthTest extends TestCase
             'password' => '123456',
         ]);  
         $response->assertStatus(201);
+        //dd($response->json(['token']));
         return $token = ($response->json(['token']));
     }
 
@@ -41,8 +42,8 @@ class AuthTest extends TestCase
 
     public function test_user_logout($token)
     {
-       $response = $this->withHeader('Authorization', 'Bearer ' . $token)->post('/api/logout');
-       //dd($response);
+       $response = $this->withHeader('Authorization', 'api' . $token)->post('/api/logout');
+       
        $response->assertStatus(200);
     }  
 }

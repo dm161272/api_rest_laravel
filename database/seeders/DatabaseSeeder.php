@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
 
         //Users base
-        $this->call(UserSeeder::class);
+      //  $this->call(UserSeeder::class);
 
 
        //  User::factory(5)->create()->each(function($user) {

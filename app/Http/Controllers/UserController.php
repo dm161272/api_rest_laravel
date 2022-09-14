@@ -102,7 +102,7 @@ class UserController extends Controller
 
         Game::create(['user_id' => $user['id']]);
 
-        $token = $user->createToken('apptoken')->plainTextToken;
+        $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
             'user' => $user,
@@ -121,8 +121,8 @@ class UserController extends Controller
      */
     public function show($id)
     {  
-       if(auth('sanctum')->user()->id == $id || 
-       auth('sanctum')->user()->roles[0]['name'] == 'admin') {
+       if(auth('api')->user()->id == $id || 
+       auth('api')->user()->roles[0]['name'] == 'admin') {
         return User::select('users.id', 'users.name', 'games.win', 'games.lose')
         ->where('users.id', $id)
         ->leftJoin('games', 'games.user_id', 'users.id')
@@ -144,7 +144,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-       if(auth('sanctum')->user()->id == $id || 
+       if(auth('api')->user()->id == $id || 
        auth()->user()->roles[0]['name'] == 'admin') {
         $user = User::find($id);
         $user->update($request->all('name'));
@@ -172,7 +172,7 @@ class UserController extends Controller
                 'message' => 'Bad credentials'
             ], 401);
         }
-        $token = $user->createToken('apptoken')->plainTextToken;
+        $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
             'user' => $user,
@@ -182,9 +182,9 @@ class UserController extends Controller
         return response($response, 201);
     }
 
-    public function logout() {
-        //dd(auth()->user());
-        auth()->user()->tokens()->delete();
+    public function logout(Request $request) {
+
+        $request->user()->tokens()->revoke();
 
         return [
             'message' => 'User logged out'

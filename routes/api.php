@@ -35,11 +35,11 @@ Route::post('/players', [UserController::class, 'store'])
 
 
 //PROTECTED ROUTES
-Route::group(['middleware' => ['auth:sanctum']], function() {
+Route::group(['middleware' => ['auth:api'], ['cors', 'json.response']], function() {
 
 
 //Logout user
-Route::post('/logout', [UserController::class, 'logout'])
+Route::get('/logout', [UserController::class, 'logout'])
 ->middleware('can:logout')
 ->name('logout');
 
