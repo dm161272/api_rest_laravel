@@ -35,11 +35,12 @@ Route::post('/players', [UserController::class, 'store'])
 
 
 //PROTECTED ROUTES
-Route::group(['middleware' => ['auth:api'], ['cors', 'json.response']], function() {
+Route::group(['middleware' => ['cors', 'json.response']], function() {
 
 
 //Logout user
-Route::get('/logout', [UserController::class, 'logout'])
+Route::post('/logout', [UserController::class, 'logout'])
+->middleware('auth:api')
 ->middleware('can:logout')
 ->name('logout');
 
@@ -79,6 +80,7 @@ Route::put('/players/{id}', [UserController::class, 'update'])
 
 /*3.POST /players/{id}/games/ : A specific player rolls the dice.*/
 Route::post('/players/{id}/games', [GameController::class, 'store'])
+->middleware('auth:api')
 ->middleware('can:players.game')
 ->name('players.game');
 

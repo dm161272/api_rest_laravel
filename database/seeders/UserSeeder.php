@@ -23,11 +23,12 @@ class UserSeeder extends Seeder
             'email' => 'admin@admin.net',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
+          
             
-        ])->assignRole('admin');
+        ])->createToken('apptoken')->accessToken->assignRole('admin');
 
         Game::create(['user_id' => $user['id']]);
+        $token = $user->createToken('apptoken')->accessToken;
 
         $user = User::create([
 
@@ -35,11 +36,12 @@ class UserSeeder extends Seeder
             'email' => 'p1@admin.net',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
+            
 
-        ])->assignRole('player');
+        ])->createToken('apptoken')->accessToken->assignRole('player');
 
         Game::create(['user_id' => $user['id']]);
+      
 
         $user = User::create([
 
@@ -47,11 +49,12 @@ class UserSeeder extends Seeder
             'email' => 'p2@admin.net',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
+            
 
-        ])->assignRole('player');
+        ])->createToken('apptoken')->accessToken->assignRole('player');
 
         Game::create(['user_id' => $user['id']]);
+      
         
         $user = User::create([
 
@@ -59,9 +62,9 @@ class UserSeeder extends Seeder
             'email' => 'p3@admin.net',
             'email_verified_at' => now(),
             'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
+            
 
-        ])->assignRole('player');
+        ])->createToken('apptoken')->accessToken->assignRole('player');
 
         Game::create(['user_id' => $user['id']]);
     }

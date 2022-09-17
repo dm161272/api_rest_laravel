@@ -27,7 +27,7 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth('sanctum')->user()->id == $request->id) {
+        if(auth('api')->user()->id == $request->id) {
         if (!Game::game()) {
             Game::where('user_id', $request->id)
             ->update(array('lose' => Game::raw('lose+1')));
@@ -77,7 +77,7 @@ class GameController extends Controller
     public function destroy($user_id)
     {
     //dd(auth()->user()->roles[0]['name']);
-    if(auth('sanctum')->user()->id == $user_id ||
+    if(auth('api')->user()->id == $user_id ||
     auth()->user()->roles[0]['name'] == 'admin') {
      $id = Game::select('id')
      ->where('user_id', '=', $user_id)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\User;
+use Lcobucci\JWT\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -182,9 +183,9 @@ class UserController extends Controller
         return response($response, 201);
     }
 
-    public function logout(Request $request) {
-
-        $request->user()->tokens()->revoke();
+    public function logout() {
+        
+        auth()->user()->token()->revoke();
 
         return [
             'message' => 'User logged out'
