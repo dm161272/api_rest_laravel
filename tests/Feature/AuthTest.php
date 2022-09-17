@@ -5,8 +5,13 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Game;
 use App\Models\User;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
+use Laravel\Passport\Bridge\AccessToken;
+
+use function PHPUnit\Framework\assertTrue;
 
 class AuthTest extends TestCase
 {
@@ -31,20 +36,33 @@ class AuthTest extends TestCase
             'email' => 'admin@admin.net',
             'password' => '123456',
         ]);  
-        $response->assertStatus(201);
-        //dd($response->json(['token']));
-        return $token = ($response->json(['token']));
+ 
+        return $response->assertStatus(201)->json(['user', 'id']);
     }
 
     /**
      * @depends test_user_login
+     * 
      */
 
-    public function test_user_logout($token)
+    public function test_user_logout($id)
     {
-       $response = $this->withHeader('Authorization', 'api' . $token)->post('/api/logout');
-       
-       $response->assertStatus(200);
+       $RefreshTokenRepository = app(\Laravel\Passport\RefreshTokenRepository::class);
+       foreach(User::find($id)->tokens as $token) {
+           $token->revoke();
+           $RefreshTokenRepository->revokeRefreshTokensByAccessTokenId($token->id);
+       }  
+       $this->addToAssertionCount(1); 
     }  
+
+    public function test_user_login_with_bad_credentials()
+    {   
+        $response = $this->post('/api/login', [
+            'email' => 'admin@admin.net',
+            'password' => '1234567',
+        ]);  
+ 
+        return $response->assertStatus(401);
+    }
 }
 
