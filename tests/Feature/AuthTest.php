@@ -49,7 +49,7 @@ class AuthTest extends TestCase
             'password' => $this->user->password,
         ]);  
  
-        return $response->assertStatus(201)->json(['user', 'id']);
+        return $response->assertStatus(201);
     }
 
     /**
@@ -57,14 +57,17 @@ class AuthTest extends TestCase
      * 
      */
 
-    public function test_user_logout($id)
-    {
-       $RefreshTokenRepository = app(\Laravel\Passport\RefreshTokenRepository::class);
-       foreach(User::find($id)->tokens as $token) {
-           $token->revoke();
-           $RefreshTokenRepository->revokeRefreshTokensByAccessTokenId($token->id);
-       }  
-       $this->addToAssertionCount(1); 
+    public function test_user_logout($response)
+    {   
+        $this->id = $response->json(['user', 'id']);
+        $this->response = $response;
+        $this->token = $this->response['token'];
+        $this->response = $this->withHeaders([
+         'Authorization' => 'Bearer '. $this->token,
+         'Accept' => 'application/json'
+     ])->post('/api/logout');
+     $response->assertStatus(201);
+    
     }  
 
     /** 
@@ -74,7 +77,6 @@ class AuthTest extends TestCase
     public function test_user_login_with_bad_credentials($user)
     {   
         $this->user = $user;
-        //dd($this->user->email);
         $response = $this->post('/api/login', [
             'email' => $this->user->email,
             'password' => (String)rand(123456, 123499),

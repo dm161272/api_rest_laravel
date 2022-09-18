@@ -89,15 +89,3 @@ Route::delete('/players/{id}/games', [GameController::class, 'destroy'])
 ->name('games.delete');
 
 });
-
-
-
-
-
-/*
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-*/
