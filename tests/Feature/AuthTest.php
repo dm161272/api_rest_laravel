@@ -16,25 +16,37 @@ use function PHPUnit\Framework\assertTrue;
 class AuthTest extends TestCase
 {
     
+    protected function newUser() {
+        //parent::setUp();
+        return $this->user = User::factory()->make();
+    }
+
     public function test_new_users_can_register()
     {
-       $user = User::factory()->make();
+       $this->user = $this->newUser();
        $response = $this->post('/api/players/', [
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => $user->password,
-            'password_confirmation' => $user->password,
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+            'password' => $this->user->password,
+            'password_confirmation' => $this->user->password,
             'role' => 'player'
         ]);
        $response->assertStatus(201);
+       return $this->user;
+       
     }
 
+    /** 
+    * @depends test_new_users_can_register
+    */
 
-    public function test_user_login()
+    public function test_user_login($user)
     {   
+        $this->user = $user;
+        //dd($this->user->email);
         $response = $this->post('/api/login', [
-            'email' => 'admin@admin.net',
-            'password' => '123456',
+            'email' => $this->user->email,
+            'password' => $this->user->password,
         ]);  
  
         return $response->assertStatus(201)->json(['user', 'id']);
@@ -55,12 +67,18 @@ class AuthTest extends TestCase
        $this->addToAssertionCount(1); 
     }  
 
-    public function test_user_login_with_bad_credentials()
+    /** 
+    * @depends test_new_users_can_register
+    */
+
+    public function test_user_login_with_bad_credentials($user)
     {   
+        $this->user = $user;
+        //dd($this->user->email);
         $response = $this->post('/api/login', [
-            'email' => 'admin@admin.net',
-            'password' => '1234567',
-        ]);  
+            'email' => $this->user->email,
+            'password' => (String)rand(123456, 123499),
+        ]);   
  
         return $response->assertStatus(401);
     }

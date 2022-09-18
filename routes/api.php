@@ -29,14 +29,13 @@ percentage of success.
 //1.POST /players : Create a player.
 Route::post('/players', [UserController::class, 'store'])
 ->name('players.store');
-
-  Route::post('/login', [UserController::class, 'login'])
+// POST /login : Login a player.
+Route::post('/login', [UserController::class, 'login'])
 ->name('login');
 
 
 //PROTECTED ROUTES
 Route::group(['middleware' => ['cors', 'json.response']], function() {
-
 
 //Logout user
 Route::post('/logout', [UserController::class, 'logout'])
@@ -88,8 +87,6 @@ Route::post('/players/{id}/games', [GameController::class, 'store'])
 Route::delete('/players/{id}/games', [GameController::class, 'destroy'])
 ->middleware('can:games.delete')
 ->name('games.delete');
-
-//Route::resource('users');
 
 });
 
