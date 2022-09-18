@@ -134,7 +134,9 @@ class PlayerTest extends TestCase
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
-       ])->put('/api/players/' . $id);
+       ])->put('/api/players/' . $id, [
+         'name' => 'Player1 name modified by test'
+     ]);
        $response->assertStatus(200);
        }
 }

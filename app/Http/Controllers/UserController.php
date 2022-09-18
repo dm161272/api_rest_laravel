@@ -186,8 +186,20 @@ class UserController extends Controller
 
         auth()->user()->token()->revoke();
 
-        return [
-            'message' => 'User logged out'
+        /* $tokenRepository = app('Laravel\Passport\TokenRepository');
+        $user = auth('api')->user();
+    
+        if ($user) {
+            $tokenRepository->revokeAccessToken($user->token()->id);
+            $user->token()->delete();
+    
+            return response()->json(['status', 'Logged Out']);
+        } else {
+            return response()->json(['status', 'Already Logged Out']);
+        } */
+
+       return [
+           'message' => 'User logged out'
         ];
     }
 

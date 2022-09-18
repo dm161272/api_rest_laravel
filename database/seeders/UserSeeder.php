@@ -36,12 +36,13 @@ class UserSeeder extends Seeder
         Game::create(['user_id' => $user['id']]);
 
 
-        
+
         $fields = ([
             'name' => 'Player1',
             'email' => 'p1@admin.net',
             'password' => '123456',
         ]);
+        
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],

@@ -133,8 +133,10 @@ class AdminTest extends TestCase
           $id = $response->json(['user', 'id']);
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
-           'Accept' => 'application/json'
-       ])->put('/api/players/' . $id);
+           'Accept' => 'application/json'])
+           ->put('/api/players/' . $id, [
+            'name' => 'Admin name modified by test'
+        ]);
        $response->assertStatus(200);
        }
 
