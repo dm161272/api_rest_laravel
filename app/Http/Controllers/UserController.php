@@ -6,6 +6,7 @@ use App\Models\Game;
 use App\Models\User;
 use Lcobucci\JWT\Parser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -184,19 +185,9 @@ class UserController extends Controller
 
     public function logout() {
 
-        auth()->user()->token()->revoke();
-
-        /* $tokenRepository = app('Laravel\Passport\TokenRepository');
-        $user = auth('api')->user();
-    
-        if ($user) {
-            $tokenRepository->revokeAccessToken($user->token()->id);
-            $user->token()->delete();
-    
-            return response()->json(['status', 'Logged Out']);
-        } else {
-            return response()->json(['status', 'Already Logged Out']);
-        } */
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $user->tokens()->delete();
 
        return [
            'message' => 'User logged out'
