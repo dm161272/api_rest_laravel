@@ -89,7 +89,6 @@ class UserController extends Controller
             'password' => bcrypt($fields['password'])
         ]);
         $user->update(['name' => 'Anonymous_' . $user->id]);
-        //$table->update(['field' => 'val']);
         }
         else 
         {
