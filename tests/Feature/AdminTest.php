@@ -92,7 +92,7 @@ class AdminTest extends TestCase
        $response->assertStatus(403);
        }
 
-         /** 
+    /** 
     * @depends test_admin_login
     */
        //Admin can delete games
@@ -107,7 +107,7 @@ class AdminTest extends TestCase
        $response->assertStatus(200);
        }
 
-         /** 
+    /** 
     * @depends test_admin_login
     */
        //Admin get list of games
@@ -123,7 +123,7 @@ class AdminTest extends TestCase
        }
 
        
-         /** 
+    /** 
     * @depends test_admin_login
     */
        //Admin modify name

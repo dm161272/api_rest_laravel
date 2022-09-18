@@ -63,7 +63,7 @@ class PlayerTest extends TestCase
        $response->assertStatus(403);
        }
 
-        /** 
+    /** 
     * @depends test_user_login
     */
        //User not authorized
@@ -123,7 +123,7 @@ class PlayerTest extends TestCase
        }
 
        
-         /** 
+    /** 
     * @depends test_user_login
     */
        //Player modify name
