@@ -17,51 +17,82 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-       $user = User::create([
-
+        $fields = ([
             'name' => 'admin',
             'email' => 'admin@admin.net',
-            'email_verified_at' => now(),
-            'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
-            
-        ])->assignRole('admin');
+            'password' => '123456',
+        ]);
+       $user = User::create([
+
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']), // password
+        ]);
+        
+        $user->assignRole(['admin']);
+
+        $user->createToken('apptoken')->accessToken;
 
         Game::create(['user_id' => $user['id']]);
 
-        $user = User::create([
 
+
+        $fields = ([
             'name' => 'Player1',
             'email' => 'p1@admin.net',
-            'email_verified_at' => now(),
-            'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
-
-        ])->assignRole('player');
-
-        Game::create(['user_id' => $user['id']]);
-
-        $user = User::create([
-
-            'name' => 'Player2',
-            'email' => 'p2@admin.net',
-            'email_verified_at' => now(),
-            'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
-
-        ])->assignRole('player');
-
-        Game::create(['user_id' => $user['id']]);
+            'password' => '123456',
+        ]);
         
         $user = User::create([
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']), // password
+            
 
+        ]);
+        $user->createToken('apptoken')->accessToken;
+
+        $user->assignRole(['player']);
+
+        Game::create(['user_id' => $user['id']]);
+      
+
+
+        $fields = ([
+            'name' => 'Player2',
+            'email' => 'p2@admin.net',
+            'password' => '123456',
+        ]);
+        $user = User::create([
+
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']), // password
+
+        ]);
+        $user->createToken('apptoken')->accessToken;
+
+        $user->assignRole(['player']);
+
+        Game::create(['user_id' => $user['id']]);
+      
+
+
+        $fields = ([
             'name' => 'Player3',
             'email' => 'p3@admin.net',
-            'email_verified_at' => now(),
-            'password' => bcrypt('123456'), // password
-            'remember_token' => Str::random(10),
+            'password' => '123456',
+        ]);
+        $user = User::create([
 
-        ])->assignRole('player');
+            'name' => $fields['name'],
+            'email' => $fields['email'],
+            'password' => bcrypt($fields['password']), // password
+
+        ]);
+        $user->createToken('apptoken')->accessToken;
+
+        $user->assignRole(['player']);
 
         Game::create(['user_id' => $user['id']]);
     }

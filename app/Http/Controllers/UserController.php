@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Game;
 use App\Models\User;
+use Lcobucci\JWT\Parser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -88,7 +90,6 @@ class UserController extends Controller
             'password' => bcrypt($fields['password'])
         ]);
         $user->update(['name' => 'Anonymous_' . $user->id]);
-        //$table->update(['field' => 'val']);
         }
         else 
         {
@@ -102,7 +103,7 @@ class UserController extends Controller
 
         Game::create(['user_id' => $user['id']]);
 
-        $token = $user->createToken('apptoken')->plainTextToken;
+        $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
             'user' => $user,
@@ -121,8 +122,8 @@ class UserController extends Controller
      */
     public function show($id)
     {  
-       if(auth('sanctum')->user()->id == $id || 
-       auth('sanctum')->user()->roles[0]['name'] == 'admin') {
+       if(auth('api')->user()->id == $id || 
+       auth('api')->user()->roles[0]['name'] == 'admin') {
         return User::select('users.id', 'users.name', 'games.win', 'games.lose')
         ->where('users.id', $id)
         ->leftJoin('games', 'games.user_id', 'users.id')
@@ -144,7 +145,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-       if(auth('sanctum')->user()->id == $id || 
+       if(auth('api')->user()->id == $id || 
        auth()->user()->roles[0]['name'] == 'admin') {
         $user = User::find($id);
         $user->update($request->all('name'));
@@ -172,7 +173,7 @@ class UserController extends Controller
                 'message' => 'Bad credentials'
             ], 401);
         }
-        $token = $user->createToken('apptoken')->plainTextToken;
+        $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
             'user' => $user,
@@ -183,10 +184,13 @@ class UserController extends Controller
     }
 
     public function logout() {
-        auth()->user()->tokens()->delete();
 
-        return [
-            'message' => 'User logged out'
+        /** @var \App\Models\User $user **/
+        $user = Auth::user();
+        $user->tokens()->delete();
+
+       return [
+           'message' => 'User logged out'
         ];
     }
 

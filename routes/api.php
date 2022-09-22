@@ -29,17 +29,17 @@ percentage of success.
 //1.POST /players : Create a player.
 Route::post('/players', [UserController::class, 'store'])
 ->name('players.store');
-
-  Route::post('/login', [UserController::class, 'login'])
+// POST /login : Login a player.
+Route::post('/login', [UserController::class, 'login'])
 ->name('login');
 
 
 //PROTECTED ROUTES
-Route::group(['middleware' => ['auth:sanctum']], function() {
-
+Route::group(['middleware' => ['cors', 'json.response']], function() {
 
 //Logout user
 Route::post('/logout', [UserController::class, 'logout'])
+->middleware('auth:api')
 ->middleware('can:logout')
 ->name('logout');
 
@@ -79,6 +79,7 @@ Route::put('/players/{id}', [UserController::class, 'update'])
 
 /*3.POST /players/{id}/games/ : A specific player rolls the dice.*/
 Route::post('/players/{id}/games', [GameController::class, 'store'])
+->middleware('auth:api')
 ->middleware('can:players.game')
 ->name('players.game');
 
@@ -87,18 +88,4 @@ Route::delete('/players/{id}/games', [GameController::class, 'destroy'])
 ->middleware('can:games.delete')
 ->name('games.delete');
 
-//Route::resource('users');
-
 });
-
-
-
-
-
-/*
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
-*/

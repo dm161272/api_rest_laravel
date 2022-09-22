@@ -5,48 +5,84 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\Game;
 use App\Models\User;
+use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
+use Laravel\Passport\Bridge\AccessToken;
+
+use function PHPUnit\Framework\assertTrue;
 
 class AuthTest extends TestCase
 {
     
-    
+    protected function newUser() {
+        //parent::setUp();
+        return $this->user = User::factory()->make();
+    }
+
     public function test_new_users_can_register()
     {
-       $user = User::factory()->make();
+       $this->user = $this->newUser();
        $response = $this->post('/api/players/', [
-            'name' => $user->name,
-            'email' => $user->email,
-            'password' => $user->password,
-            'password_confirmation' => $user->password,
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+            'password' => $this->user->password,
+            'password_confirmation' => $this->user->password,
             'role' => 'player'
         ]);
        $response->assertStatus(201);
+       return $this->user;
+       
     }
 
-    public function test_user_login()
+    /** 
+    * @depends test_new_users_can_register
+    */
+
+    public function test_user_login($user)
     {   
-        //$this->withoutMiddleware();
-
+        $this->user = $user;
+        //dd($this->user->email);
         $response = $this->post('/api/login', [
-            'email' => 'admin@admin.net',
-            'password' => '123456',
-        ]);
-
-        $response->assertStatus(201);
+            'email' => $this->user->email,
+            'password' => $this->user->password,
+        ]);  
  
+        return $response->assertStatus(201);
     }
 
-    public function test_user_logout()
-    {
-        $response = $this->post('/api/logout');
+    /**
+     * @depends test_user_login
+     * 
+     */
 
-       // $this->withoutExceptionHandling();
-       // $this->assertAuthenticated();
-        $response->assertStatus(200);
- 
+    public function test_user_logout($response)
+    {   
+        $this->id = $response->json(['user', 'id']);
+        $this->response = $response;
+        $this->token = $this->response['token'];
+        $this->response = $this->withHeaders([
+         'Authorization' => 'Bearer '. $this->token,
+         'Accept' => 'application/json'
+     ])->post('/api/logout');
+     $response->assertStatus(201);
+    
     }  
-}
 
+    /** 
+    * @depends test_new_users_can_register
+    */
+
+    public function test_user_login_with_bad_credentials($user)
+    {   
+        $this->user = $user;
+        $response = $this->post('/api/login', [
+            'email' => $this->user->email,
+            'password' => (String)rand(123456, 123499),
+        ]);   
+ 
+        return $response->assertStatus(401);
+    }
+}
 
