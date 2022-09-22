@@ -7,11 +7,13 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-     <html class="h-full bg-gray-50">
-    <body class="h-full">
-  <HelloWorld/>
-    </body>
-    </html>
+   
+<router-view>
+
+
+  
+</router-view>
+
 </template>
 
 

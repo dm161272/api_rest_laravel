@@ -1,9 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router';
+import Login from '../views/Login.vue';
+import Register from '../views/Register.vue';
+import Game from '../views/Game.vue';
 
 const routes = [
 
 {
-    path: '/login',
+    path: '/',
     name: 'Login',
     component: Login
 },
