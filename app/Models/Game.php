@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $fillable = ['player_id', 'win', 'lose'];
+    protected $fillable = ['user_id', 'win', 'lose'];
 
     public static function game() {
         $throw_1 = Dice::throw();

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
 
 class GameController extends Controller
 {
@@ -25,14 +27,22 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
+        if(auth('sanctum')->user()->id == $request->id) {
         if (!Game::game()) {
-            Game::where('player_id', $request->id)
+            Game::where('user_id', $request->id)
             ->update(array('lose' => Game::raw('lose+1')));
         } 
         else 
         {
-            Game::where('player_id', $request->id)
+            Game::where('user_id', $request->id)
             ->update(array('win' => Game::raw('win+1')));
+        }
+       }
+       else 
+        {
+            return response ([
+            'message' => 'Not authorized'], 401);
+
         }
     }
     /**
@@ -64,11 +74,21 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($player_id)
+    public function destroy($user_id)
     {
+    //dd(auth()->user()->roles[0]['name']);
+    if(auth('sanctum')->user()->id == $user_id ||
+    auth()->user()->roles[0]['name'] == 'admin') {
      $id = Game::select('id')
-     ->where('player_id', '=', $player_id)
+     ->where('user_id', '=', $user_id)
      ->update(array('win' => 0, 'lose' => 0));
     }
+    else 
+    {
+        return response ([
+        'message' => 'Not authorized'], 401);
 
+    }
+
+   } 
 }

@@ -8,7 +8,6 @@ class Dice extends Model
 {
   
     public static function throw() {
-        $number = rand(1, 6);
-        return $number;
+        return rand(1, 6);
     }
 }
