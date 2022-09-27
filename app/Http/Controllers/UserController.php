@@ -11,63 +11,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    /**
-     * Display users and succes rate percentage.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return User::select('users.id', 'users.name', 
-        Game::raw('(win/(win + lose))*100 AS success_rate'))
-        ->leftJoin('games', 'games.user_id', 'users.id')
-        ->get();
-    }
-
-    /**
-     * Display users ranking success.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function rank()
-    {
-        return User::select('users.id', 'users.name', 
-        Game::raw('(win/(win + lose))*100 AS rank'))
-        ->leftJoin('games', 'games.user_id', 'users.id')
-        ->orderBy('rank', 'DESC')
-        ->get();
-    }
-
-     /**
-     * Display user with most wins.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function winner()
-    {
-        $maxValue = Game::max(Game::raw('(win/(win + lose))*100'));
-        return User::select(
-        Game::raw('users.id, users.name, (win/(win + lose))*100 AS rank'))
-        ->leftJoin('games', 'games.user_id', 'users.id')
-        ->where(Game::raw('(win/(win + lose))*100'), $maxValue)
-        ->get();
-    }
-
-      /**
-     * Display user with most lose.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function loser()
-    {
-        $minValue = Game::min(Game::raw('(win/(win + lose))*100'));
-        return User::select(
-        Game::raw('users.id, users.name, (win/(win + lose))*100 AS rank'))
-        ->leftJoin('games', 'games.user_id', 'users.id')
-        ->where(Game::raw('(win/(win + lose))*100'), $minValue)
-        ->get();
-    }
-
 
     /**
      * Store users.
@@ -77,30 +20,40 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {  
+        $role = User::role('admin')
+        ->get()
+        ->toArray();
         $fields = $request->validate([
             'name' => 'string',
             'email' => 'required|email|unique:users',
-            'password' => 'required|string|confirmed',
+            'password' => 'required|string|confirmed|min:6',
             'role' => 'required|string'
         ]);
+        //dd((!isset($role[0])), $fields['role'] == 'admin');
+        if((isset($role[0])) && ($fields['role'] == 'admin')) { 
 
-        if(!isset($fields['name'])) {
-           $user = User::create([
-            'email' => $fields['email'],
-            'password' => bcrypt($fields['password'])
-        ]);
-        $user->update(['name' => 'Anonymous_' . $user->id]);
+            return response('User with administrator priviledges already exists', 409);
         }
         else 
         {
-        $user = User::create([
-        'name' => $fields['name'],
-        'email' => $fields['email'],
-        'password' => bcrypt($fields['password'])
-        ]);}
-
-        $user->assignRole($fields['role']);
-
+            if(!isset($fields['name'])) {
+                $user = User::create([
+                 'email' => $fields['email'],
+                 'password' => bcrypt($fields['password'])
+             ]);
+             $user->update(['name' => 'Anonymous_' . $user->id]);
+             }
+             else 
+             {
+             $user = User::create([
+             'name' => $fields['name'],
+             'email' => $fields['email'],
+             'password' => bcrypt($fields['password'])
+             ]);}
+                
+             $user->assignRole($fields['role']);}
+        
+           
         Game::create(['user_id' => $user['id']]);
 
         $token = $user->createToken('apptoken')->accessToken;
@@ -112,28 +65,6 @@ class UserController extends Controller
 
         return response($response, 201);
 
-    }
-
-    /**
-     * Display User with list of games.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {  
-       if(auth('api')->user()->id == $id || 
-       auth('api')->user()->roles[0]['name'] == 'admin') {
-        return User::select('users.id', 'users.name', 'games.win', 'games.lose')
-        ->where('users.id', $id)
-        ->leftJoin('games', 'games.user_id', 'users.id')
-        ->get();} 
-        else 
-        {
-            return response ([
-                'message' => 'Not authorized'], 401);
-
-        }
     }
 
     /**
