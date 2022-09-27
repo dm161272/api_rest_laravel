@@ -29,7 +29,6 @@ class UserController extends Controller
             'password' => 'required|string|confirmed|min:6',
             'role' => 'required|string'
         ]);
-        //dd((!isset($role[0])), $fields['role'] == 'admin');
         if((isset($role[0])) && ($fields['role'] == 'admin')) { 
 
             return response('User with administrator priviledges already exists', 409);
@@ -53,18 +52,18 @@ class UserController extends Controller
                 
              $user->assignRole($fields['role']);}
         
-           
         Game::create(['user_id' => $user['id']]);
 
         $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
-            'user' => $user,
+            'id' => $user['id'],
+            'username' => $user['name'],
+            'email' => $user['email'],
             'token' => $token
         ];
 
         return response($response, 201);
-
     }
 
     /**

@@ -28,21 +28,26 @@ class GameController extends Controller
     public function store(Request $request)
     {
         if(auth('api')->user()->id == $request->id) {
-        if (!Game::game()) {
-            Game::where('user_id', $request->id)
-            ->update(array('lose' => Game::raw('lose+1')));
-        } 
-        else 
+             $game = Game::game();
+        if (($game[0] + $game[1])%7 == 0) 
         {
             Game::where('user_id', $request->id)
             ->update(array('win' => Game::raw('win+1')));
+            return response()->json([
+                'win', $game[0], $game[1]], 201);
+        } 
+        else
+        {
+            Game::where('user_id', $request->id)
+            ->update(array('lose' => Game::raw('lose+1')));
+            return response()->json([
+                'lose', $game[0], $game[1]], 201);
         }
-       }
+        }
        else 
         {
             return response ([
             'message' => 'Not authorized'], 401);
-
         }
     }
     /**
@@ -82,11 +87,13 @@ class GameController extends Controller
      $id = Game::select('id')
      ->where('user_id', '=', $user_id)
      ->update(array('win' => 0, 'lose' => 0));
+        return response ([
+        'message' => 'All user games deleted'], 200);
     }
     else 
     {
-        return response ([
-        'message' => 'Not authorized'], 401);
+         return response ([
+         'message' => 'Not authorized'], 401);
 
     }
 

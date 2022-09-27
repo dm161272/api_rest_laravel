@@ -3,6 +3,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GameController;
 
@@ -45,30 +46,30 @@ Route::post('/logout', [UserController::class, 'logout'])
 
 /* 5. GET /players: returns the list of all the players in the system with their 
 average success rate */
-Route::get('/players', [UserController::class, 'index'])
+Route::get('/players', [User::class, 'index'])
 ->middleware('can:players.list')
 ->name('players.list');
 
 /*8.GET /players/ranking/loser: returns the player with the worst success rate.*/
-Route::get('/players/ranking/loser', [UserController::class, 'loser'])
+Route::get('/players/ranking/loser', [User::class, 'loser'])
 ->middleware('can:players.loser')
 ->name('players.loser');
 
 /*9.GET /players/ranking/winner: returns the player with the best 
 percentage of success.*/
-Route::get('/players/ranking/winner', [UserController::class, 'winner'])
+Route::get('/players/ranking/winner', [User::class, 'winner'])
 ->middleware('can:players.winner')
 ->name('players.winner');
 
 /*7. GET /players/ranking: returns the average ranking of all players in the system.
 That is, the average percentage of successes.*/
-Route::get('/players/ranking', [UserController::class, 'rank'])
+Route::get('/players/ranking', [User::class, 'rank'])
 ->middleware('can:players.ranks')
 ->name('players.ranks');
 
 
 /*6.GET /players/{id}/games: returns the list of games for a player.*/
-Route::get('/players/{id}', [UserController::class, 'show'])
+Route::get('/players/{id}', [User::class, 'show'])
 ->middleware('can:games.list')
 ->name('games.list');
 
