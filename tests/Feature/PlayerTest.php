@@ -89,7 +89,7 @@ class PlayerTest extends TestCase
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
        ])->post('/api/players/' . $id . '/games');
-       $response->assertStatus(200);
+       $response->assertStatus(201);
        }
 
     /** 
