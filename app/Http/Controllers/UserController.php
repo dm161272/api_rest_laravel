@@ -8,6 +8,7 @@ use Lcobucci\JWT\Parser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -23,34 +24,45 @@ class UserController extends Controller
         $role = User::role('admin')
         ->get()
         ->toArray();
-        $fields = $request->validate([
-            'name' => 'string',
+
+        $fields = [
+            'name' => 'string|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed|min:6',
             'role' => 'required|string'
-        ]);
+        ];
+
+        $validated = Validator::make($request->all(), $fields, ['email.unique' => 'Invalid entry']);
+
+        if($validated->fails())
+        {
+            return response()->json(['messages' => 'The given data was invalid.', 'errors' => $validated->errors()], 422);
+        }
+
+
         if((isset($role[0])) && ($fields['role'] == 'admin')) { 
 
             return response('User with administrator priviledges already exists', 409);
         }
         else 
         {
-            if(!isset($fields['name'])) {
+            if($request->get('name') == NULL) {
                 $user = User::create([
-                 'email' => $fields['email'],
-                 'password' => bcrypt($fields['password'])
+                 'email' => $request->get('email'),
+                 'password' => bcrypt($request->get('password'))
              ]);
+             //dd($user->name);
              $user->update(['name' => 'Anonymous_' . $user->id]);
              }
              else 
              {
              $user = User::create([
-             'name' => $fields['name'],
-             'email' => $fields['email'],
-             'password' => bcrypt($fields['password'])
+             'name' => $request->get('name'),
+             'email' => $request->get('email'),
+             'password' =>  bcrypt($request->get('password'))
              ]);}
                 
-             $user->assignRole($fields['role']);}
+             $user->assignRole($request->get('role'));}
         
         Game::create(['user_id' => $user['id']]);
 
