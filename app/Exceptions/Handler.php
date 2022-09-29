@@ -68,7 +68,7 @@ class Handler extends ExceptionHandler
 
     $this->renderable(function (RoleDoesNotExist $e, $request) {
         if ($request->wantsJson()) {
-        return response()->json(['message' => 'Role Does Not Exist'], 405);
+        return response()->json(['message' => 'Role Does Not Exist'], 500);
        }
     });
 

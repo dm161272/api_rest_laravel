@@ -118,7 +118,9 @@ class UserController extends Controller
         $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
-            'user' => $user,
+            'message' => 'User logged in',
+            'id' => $user['id'],
+            'user' => $user['name'],
             'token' => $token
         ];
 

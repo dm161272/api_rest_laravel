@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
 
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password']), // password
+            'password' => bcrypt($fields['password']), // 123456
         ]);
         
         $user->assignRole(['admin']);
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
         $user = User::create([
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password']), // password
+            'password' => bcrypt($fields['password']), // 123456
             
 
         ]);
@@ -67,7 +67,7 @@ class UserSeeder extends Seeder
 
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password']), // password
+            'password' => bcrypt($fields['password']), // 123456
 
         ]);
         $user->createToken('apptoken')->accessToken;
@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
 
             'name' => $fields['name'],
             'email' => $fields['email'],
-            'password' => bcrypt($fields['password']), // password
+            'password' => bcrypt($fields['password']), // 123456
 
         ]);
         $user->createToken('apptoken')->accessToken;
