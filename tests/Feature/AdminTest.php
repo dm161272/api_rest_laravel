@@ -16,6 +16,7 @@ class AdminTest extends TestCase
             'email' => 'admin@admin.net',
             'password' => '123456',
         ]);  
+        //dd($response->json('id'));
         return $response->assertStatus(201);
     }
 
@@ -83,8 +84,9 @@ class AdminTest extends TestCase
        //Admin can not play the game
        public function test_admin_rolls_dice($response)
        {
+         //dd($response->json('id'));
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
@@ -99,7 +101,7 @@ class AdminTest extends TestCase
        public function test_admin_delete_games($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
@@ -114,7 +116,7 @@ class AdminTest extends TestCase
        public function test_admin_show_games($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
@@ -130,7 +132,7 @@ class AdminTest extends TestCase
        public function test_admin_modify_name($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'])

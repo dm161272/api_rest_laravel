@@ -84,7 +84,7 @@ class PlayerTest extends TestCase
        public function test_user_rolls_dice($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
@@ -99,7 +99,7 @@ class PlayerTest extends TestCase
        public function test_user_delete_games($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
@@ -114,7 +114,7 @@ class PlayerTest extends TestCase
        public function test_user_show_games($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
@@ -130,7 +130,7 @@ class PlayerTest extends TestCase
        public function test_user_modify_name($response)
        {
           $token = $response['token'];
-          $id = $response->json(['user', 'id']);
+          $id = $response->json('id');
           $response = $this->withHeaders([
            'Authorization' => 'Bearer '. $token,
            'Accept' => 'application/json'
