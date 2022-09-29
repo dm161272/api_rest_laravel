@@ -40,7 +40,7 @@ class UserController extends Controller
         }
 
 
-        if((isset($role[0])) && ($fields['role'] == 'admin')) { 
+        if((isset($role[0])) && ($request->get('role') == 'admin')) { 
 
             return response('User with administrator priviledges already exists', 409);
         }
