@@ -6,6 +6,7 @@ use Throwable;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -56,6 +57,12 @@ class Handler extends ExceptionHandler
              return response()->json(['message' => 'Access Denied'], 403);
             }
     });
+
+       $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+        if ($request->wantsJson()) {
+        return response()->json(['message' => 'Method not allowed'], 405);
+       }
+});
 
     }
 }
