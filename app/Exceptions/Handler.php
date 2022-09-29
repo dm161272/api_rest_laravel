@@ -7,6 +7,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Spatie\Permission\Exceptions\RoleDoesNotExist;
 
 class Handler extends ExceptionHandler
 {
@@ -62,7 +63,14 @@ class Handler extends ExceptionHandler
         if ($request->wantsJson()) {
         return response()->json(['message' => 'Method not allowed'], 405);
        }
-});
+    });
+
+
+    $this->renderable(function (RoleDoesNotExist $e, $request) {
+        if ($request->wantsJson()) {
+        return response()->json(['message' => 'Role Does Not Exist'], 405);
+       }
+    });
 
     }
 }
