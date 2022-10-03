@@ -42,7 +42,7 @@ class UserController extends Controller
 
         if((isset($role[0])) && ($request->get('role') == 'admin')) { 
 
-            return response('User with administrator priviledges already exists', 409);
+            return response()->json(['message' => 'User with administrator priviledges already exists'], 409);
         }
         else 
         {
@@ -96,12 +96,10 @@ class UserController extends Controller
         {
             return response ([
             'message' => 'Not authorized'], 401);
-
         }
-
-
     }
 
+    
     public function login(Request $request) {
         $fields = $request->validate([
             'email' => 'required|string',
@@ -111,9 +109,8 @@ class UserController extends Controller
         $user = User::where('email', $fields['email'])->first();
         //check password
         if (!$user || !Hash::check($fields['password'], $user->password)) {
-            return response ([
-                'message' => 'Bad credentials'
-            ], 401);
+               return response ([
+              'message' => 'Bad credentials'], 401);
         }
         $token = $user->createToken('apptoken')->accessToken;
 
