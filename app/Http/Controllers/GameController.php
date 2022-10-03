@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Game;
+
 use Illuminate\Http\Request;
+use Spatie\Permission\Traits\HasRoles;
 
 class GameController extends Controller
 {
@@ -25,14 +27,27 @@ class GameController extends Controller
      */
     public function store(Request $request)
     {
-        if (!Game::game()) {
-            Game::where('player_id', $request->id)
-            ->update(array('lose' => Game::raw('lose+1')));
-        } 
-        else 
+        if(auth('api')->user()->id == $request->id) {
+             $game = Game::game();
+        if (($game[0] + $game[1])%7 == 0) 
         {
-            Game::where('player_id', $request->id)
+            Game::where('user_id', $request->id)
             ->update(array('win' => Game::raw('win+1')));
+            return response()->json(['message' =>
+                'win', 'dice 1' => $game[0], 'dice 2' => $game[1]], 201);
+        } 
+        else
+        {
+            Game::where('user_id', $request->id)
+            ->update(array('lose' => Game::raw('lose+1')));
+            return response()->json(['result' =>
+                'lose', 'dice 1' => $game[0], 'dice 2' => $game[1]], 201);
+        }
+        }
+       else 
+        {
+            return response ([
+            'message' => 'Not authorized'], 401);
         }
     }
     /**
@@ -64,11 +79,23 @@ class GameController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($player_id)
+    public function destroy($user_id)
     {
+    //dd(auth()->user()->roles[0]['name']);
+    if(auth('api')->user()->id == $user_id ||
+    auth()->user()->roles[0]['name'] == 'admin') {
      $id = Game::select('id')
-     ->where('player_id', '=', $player_id)
+     ->where('user_id', '=', $user_id)
      ->update(array('win' => 0, 'lose' => 0));
+        return response ([
+        'message' => 'All user games deleted'], 200);
+    }
+    else 
+    {
+         return response ([
+         'message' => 'Not authorized'], 401);
+
     }
 
+   } 
 }

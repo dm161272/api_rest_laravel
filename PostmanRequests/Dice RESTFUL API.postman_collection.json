@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "d21f9ef3-e0da-46b0-8b36-1a333791f3e9",
+		"name": "Dice RESTFUL API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22009670"
+	},
+	"item": [
+		{
+			"name": "get all() players",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|lAZn7OIBvxWxllDArSCi6oruD8ch5sRKOQagFlVN",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "test@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Test1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/players/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"players",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "all() players",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Player 22",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "email22@email.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout player",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "1|vJ7Vc5JAFDgURSPT9tVRlAVTvy86Rxi3tYpBy8PT",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Player 22",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "email22@email.com",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register user dice game api",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|4PKBPXbNgLDqbP12ll7CwYdQ0rWk0g0lTMnmG4wS",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Admin",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@admin.net",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all players and success rate only by admin",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "4|4PKBPXbNgLDqbP12ll7CwYdQ0rWk0g0lTMnmG4wS",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Admin",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@admin.net",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/players",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"players"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "player rolls the dice",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMWQ3MjEzY2MyZTA1OWMwOTRjZTc4NDBkNWJhZDlhNzA3M2U2NzUwNTY1NTZkOTgyNjJjMWJlYTNmMzliYmU3ODIyMTJkYzExYTg3MDExM2IiLCJpYXQiOjE2NjM1NzMyNzQuNTQyNTgzLCJuYmYiOjE2NjM1NzMyNzQuNTQyNTg2LCJleHAiOjE2OTUxMDkyNzQuNTA0OTE1LCJzdWIiOiI0Iiwic2NvcGVzIjpbXX0.fGQbv2V6dmwty75KdnlIZFyuMTInfbIj9jq1ZRHNviNGU7BeFCYtu6z4xYGXaWGDgDBtBP5ZxVbgiOiA_uYUI0Cu4jWQM67QnYCR-AoG8TleRCCV3-EEcCZ7Ewf-AflUhHPNuOZcywKgTxQ7VGKaMYvAu1cXk0xlKaBon2gsxMQG9tNxZCSygptiM0fcLUOmdsMxqljO6GiT_FMapWCw4Bw94vhWwrHzbHlREx3wLiHqW-XAg6lsrT3emdRZPTVza8tQ6VYJBq-Ql4HKHUERnYkZlfffO7X8HShD84LKdMOSAAl-zBXvGpgpDG6atSjLkwtp1qy2Mjmvrq1ADE1-bdsUEALg5t-U-4Z8H_tDdWrrwsybJwlAYswBOueQdP7TD_CE8QwwGrBHdgktm7Hb9vU_f1KoZVV_Nxw3a_882Zz9dpXxogcgCGuRKA6cjbQmux3ft084JVSMCJYnDCPteouXip_XT5wT7cqMzcwx74_7lFw0BHqoINK7YDR8ML6BEJGtT5BVrdUC8OKGF6whTXbp6LyqXtp8qLiQXZ7Fn8OYV0Y5Z5ETH7VCleJ26yQb1CHFTCTciTC4SSssdXLbUboxCJy6fiI8AH3YnvW_NhyyuEJQLlqUzbvs5wQR8oOvfE9eX3ndmXAQuWYrCm2bT8M58waYQBy76o7M95xsdpE",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Admin",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "admin@admin.net",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "role",
+							"value": "admin",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/players/4/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"players",
+						"4",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login user dice game api",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Admin",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "admin@admin.net",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456",
+							"type": "text"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "123456",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "logout user dice game api",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMDFiMWM2MjM0YjU2YTAwYzM1MGRlZjQ3ZTkyYWRjODY1ZTU3OGVmNDZkNGViMTk3MTYyYzU4MDEyMTczNDU3NzA1MTkyZmJmM2I3ZTg4MDciLCJpYXQiOjE2NjM0NDUyMjIuOTg0NDk3LCJuYmYiOjE2NjM0NDUyMjIuOTg0NDk5LCJleHAiOjE2OTQ5ODEyMjIuOTc1Mjg5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.XxpTV002Bq6Y7F78C9Qor0HjopSRXGQdY5l5aFQWS0E24CaskoGsjiu_6lva56_TDBJyWW8PZIcek_Xy_iXw6b676Dcl2wpmSR5apzFDqTZVbo__ZkKreh7JO0IDabR5G-vZyf-uHww24pAkGnsyHqzx0O4x9_KyD9yVbwoCrJR2vbM-xKbALPPTeIY42ifRukGD_1UwZf-bljR6wTNip-ujWqtKNm9Q7sxqfHBDa8tfrNC3ul39CuSaBgz8NWTtJtAcuAfe_niGIvpSiovCawmIS6hRXWcWdH4HHLQmTpzbKQ7IBQW_OLou3S0TfmeADdTFTvoMPK3GzODfu8h6cDqc9VOdZQCO3yQRDOy7taz7xYAeZWBNYeI1pzaec1s0bE23GrgUb4LxZm9nGWBPNbicJJvvuYszySUPCtyrKP85i1UYuCteXi95iwxlbT2A9UFfLmLmD1NRUB5GHAxXBPJW6zXVSPNKTWLmEi-0vkCfTtNF7_dkvAoreAVudDbmpvAJVK1Fn_9d4aqe66tr1AqObc766n543WSupkCTBsW0h_u6G5dFhDNFubb1sAb8-ryOyb7xFUaeM0FaKaT0rSGlINw9gmxa-YL4h4_1gQ4504cz2zABaPsK4n3TvucqW5y7FcNUBUHhR9UmuaxaVzVc6gv_uUolVCdQBvixg2c",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "user",
+							"value": "admin",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "admin",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
