@@ -34,14 +34,14 @@ class GameController extends Controller
             Game::where('user_id', $request->id)
             ->update(array('win' => Game::raw('win+1')));
             return response()->json(['message' =>
-                'win', 'dice 1: ' => $game[0], 'dice 2: ' => $game[1]], 201);
+                'win', 'dice 1' => $game[0], 'dice 2' => $game[1]], 201);
         } 
         else
         {
             Game::where('user_id', $request->id)
             ->update(array('lose' => Game::raw('lose+1')));
             return response()->json(['result' =>
-                'lose', 'dice 1: ' => $game[0], 'dice 2: ' => $game[1]], 201);
+                'lose', 'dice 1' => $game[0], 'dice 2' => $game[1]], 201);
         }
         }
        else 
