@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// Display companies' listing ordered by size - ascending or descending.
+Route::get('/index/size/{order}',[Company::class, 'indexBySize']);
+
+
