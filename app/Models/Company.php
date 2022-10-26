@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-//use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model;
 
 class Company extends Model
@@ -20,6 +19,13 @@ class Company extends Model
         'industry',
         'linkedin_url',
     ];
-  
     protected $primaryKey = 'id';
+
+
+
+    // Display companies' listing ordered by size - ascending or descending.
+    public function indexBySize($order)
+    {
+     return Company::orderBy('size', $order)->get();;
+    }
 }

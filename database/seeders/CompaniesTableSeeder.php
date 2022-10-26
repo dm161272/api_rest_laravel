@@ -5,7 +5,6 @@ namespace Database\Seeders;
 
 use App\Models\Company;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\File;
 
 class CompaniesTableSeeder extends Seeder
 {
