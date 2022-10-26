@@ -28,5 +28,9 @@ class Company extends Model
      return $this->orderBy('size', $order)->get();
     }
 
-   
+    // Display companies' listing ordered by foundation date - ascending or descending.
+    public function indexByFounded($order)
+    {
+     return $this->orderBy('founded', $order)->get();
+    }
 }

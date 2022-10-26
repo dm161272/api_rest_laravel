@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Display companies' listing ordered by size - ascending or descending.
 Route::get('/index/size/{order}',[Company::class, 'indexBySize']);
 
-
+// Display companies' listing ordered by foundation date - ascending or descending.
+Route::get('/index/founded/{order}',[Company::class, 'indexByFounded']);
