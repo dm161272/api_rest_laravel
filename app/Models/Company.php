@@ -22,10 +22,9 @@ class Company extends Model
     protected $primaryKey = 'id';
 
 
-
     // Display companies' listing ordered by size - ascending or descending.
     public function indexBySize($order)
     {
-     return Company::orderBy('size', $order)->get();;
+     return $this->orderBy('size', $order)->get();
     }
 }
