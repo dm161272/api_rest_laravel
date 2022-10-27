@@ -25,3 +25,9 @@ Route::get('/index/size/{order}',[Company::class, 'indexBySize']);
 
 // Display companies' listing ordered by foundation date - ascending or descending.
 Route::get('/index/founded/{order}',[Company::class, 'indexByFounded']);
+
+// Display following data: Number of companies in each industry, 
+// Number of companies in each size range, 
+// Number of companies in each year of creation
+
+Route::get('/index/analytics/',[Company::class, 'indexByAnalytics']);
