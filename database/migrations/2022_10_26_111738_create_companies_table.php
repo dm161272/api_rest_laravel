@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('website');
             $table->string('name')->nullable();
-            $table->date('founded')->nullable();
-            $table->string('size');
+            $table->integer('founded')->nullable();
+            $table->integer('size_min');
+            $table->string('size_max')->nullable();
             $table->string('locality')->nullable();
             $table->string('region')->nullable();
             $table->string('country')->nullable();
