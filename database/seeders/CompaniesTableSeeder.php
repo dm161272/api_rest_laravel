@@ -21,7 +21,7 @@ class CompaniesTableSeeder extends Seeder
 
               $s = explode("-", $json[$index]['size']);
               unset($company['size']);
-              $min = (int)$s[0];
+                $min = (int)$s[0];
               if (count($s) == 1) 
               {  
                 $max = "+";
