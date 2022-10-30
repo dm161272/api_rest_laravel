@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
+
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 
 class CompanyController extends Controller
 {
+
+
+    
     /**
      * Display a listing of the resource.
      *
