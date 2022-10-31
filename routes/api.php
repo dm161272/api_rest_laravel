@@ -27,7 +27,7 @@ Route::post('/login', [UserController::class, 'login'])
 
 
 //PROTECTED ROUTES
-Route::group(['middleware' => ['auth:api']], function() {
+Route::group(['middleware' => ['auth']], function() {
 
 // Display following data: Number of companies in each industry, 
 // Number of companies in each size range, 
