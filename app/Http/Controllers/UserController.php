@@ -27,7 +27,7 @@ class UserController extends Controller
             'name' => 'required|string|unique:users',
             'email' => 'required|email|unique:users',
             'password' => 'required|string|confirmed|min:6',
-           // 'role' => 'required|string'
+            'role' => 'required|string'
         ];
 
         $validated = Validator::make($request->all(), $fields, ['email.unique' => 'Invalid entry']);
@@ -48,23 +48,24 @@ class UserController extends Controller
              $user = User::create([
              'name' => $request->get('name'),
              'email' => $request->get('email'),
-             'password' =>  bcrypt($request->get('password'))
+             'password' =>  bcrypt($request->get('password')),
              ]);
                 
-            // $user->assignRole($request->get('role'));}
+            $user->assignRole($request->get('role'));}
 
-        $token = $user->createToken('apptoken')->accessToken;
+            $token = $user->createToken('apptoken')->accessToken;
 
         $response = [
             'id' => $user['id'],
             'username' => $user['name'],
             'email' => $user['email'],
-            'token' => $token
+            'token' => $token,
+            'role' => $user['role'],
         ];
 
         return response($response, 201);
     }
-}
+//}
 
     /**
      * Update user`s name.

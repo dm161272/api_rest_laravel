@@ -19,11 +19,11 @@ class ComposerStaticInit94779b3ea20f6eb6871a85abda7ae3ce
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '3bd81c9b8fcc150b69d8b63b4d2ccf23' => __DIR__ . '/..' . '/spatie/flare-client-php/src/helpers.php',
         '23c18046f52bef3eea034657bafda50f' => __DIR__ . '/..' . '/symfony/polyfill-php81/bootstrap.php',
+        '3a37ebac017bc098e9a86b35401e7a68' => __DIR__ . '/..' . '/mongodb/mongodb/src/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         '09f6b20656683369174dd6fa83b7e5fb' => __DIR__ . '/..' . '/symfony/polyfill-uuid/bootstrap.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
-        '3a37ebac017bc098e9a86b35401e7a68' => __DIR__ . '/..' . '/mongodb/mongodb/src/functions.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '35a6ad97d21e794e7e22a17d806652e4' => __DIR__ . '/..' . '/nunomaduro/termwind/src/Functions.php',
         'decc78cc4436b1292c6c0d151b19445c' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/bootstrap.php',
@@ -121,6 +121,7 @@ class ComposerStaticInit94779b3ea20f6eb6871a85abda7ae3ce
         array (
             'Monolog\\' => 8,
             'MongoDB\\' => 8,
+            'Maklad\\Permission\\' => 18,
         ),
         'L' => 
         array (
@@ -423,6 +424,10 @@ class ComposerStaticInit94779b3ea20f6eb6871a85abda7ae3ce
         'MongoDB\\' => 
         array (
             0 => __DIR__ . '/..' . '/mongodb/mongodb/src',
+        ),
+        'Maklad\\Permission\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src',
         ),
         'League\\Uri\\' => 
         array (
@@ -3432,6 +3437,32 @@ class ComposerStaticInit94779b3ea20f6eb6871a85abda7ae3ce
         'League\\Uri\\UriTemplate\\Template' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/Template.php',
         'League\\Uri\\UriTemplate\\VarSpecifier' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/VarSpecifier.php',
         'League\\Uri\\UriTemplate\\VariableBag' => __DIR__ . '/..' . '/league/uri/src/UriTemplate/VariableBag.php',
+        'Maklad\\Permission\\Commands\\CreatePermission' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Commands/CreatePermission.php',
+        'Maklad\\Permission\\Commands\\CreateRole' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Commands/CreateRole.php',
+        'Maklad\\Permission\\Contracts\\PermissionInterface' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Contracts/PermissionInterface.php',
+        'Maklad\\Permission\\Contracts\\RoleInterface' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Contracts/RoleInterface.php',
+        'Maklad\\Permission\\Directives\\PermissionDirectives' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Directives/PermissionDirectives.php',
+        'Maklad\\Permission\\Exceptions\\GuardDoesNotMatch' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/GuardDoesNotMatch.php',
+        'Maklad\\Permission\\Exceptions\\MakladException' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/MakladException.php',
+        'Maklad\\Permission\\Exceptions\\PermissionAlreadyExists' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/PermissionAlreadyExists.php',
+        'Maklad\\Permission\\Exceptions\\PermissionDoesNotExist' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/PermissionDoesNotExist.php',
+        'Maklad\\Permission\\Exceptions\\RoleAlreadyExists' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/RoleAlreadyExists.php',
+        'Maklad\\Permission\\Exceptions\\RoleDoesNotExist' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/RoleDoesNotExist.php',
+        'Maklad\\Permission\\Exceptions\\UnauthorizedException' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/UnauthorizedException.php',
+        'Maklad\\Permission\\Exceptions\\UnauthorizedPermission' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/UnauthorizedPermission.php',
+        'Maklad\\Permission\\Exceptions\\UnauthorizedRole' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/UnauthorizedRole.php',
+        'Maklad\\Permission\\Exceptions\\UserNotLoggedIn' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Exceptions/UserNotLoggedIn.php',
+        'Maklad\\Permission\\Guard' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Guard.php',
+        'Maklad\\Permission\\Helpers' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Helpers.php',
+        'Maklad\\Permission\\Middlewares\\PermissionMiddleware' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Middlewares/PermissionMiddleware.php',
+        'Maklad\\Permission\\Middlewares\\RoleMiddleware' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Middlewares/RoleMiddleware.php',
+        'Maklad\\Permission\\Models\\Permission' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Models/Permission.php',
+        'Maklad\\Permission\\Models\\Role' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Models/Role.php',
+        'Maklad\\Permission\\PermissionRegistrar' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/PermissionRegistrar.php',
+        'Maklad\\Permission\\PermissionServiceProvider' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/PermissionServiceProvider.php',
+        'Maklad\\Permission\\Traits\\HasPermissions' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Traits/HasPermissions.php',
+        'Maklad\\Permission\\Traits\\HasRoles' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Traits/HasRoles.php',
+        'Maklad\\Permission\\Traits\\RefreshesPermissionCache' => __DIR__ . '/..' . '/mostafamaklad/laravel-permission-mongodb/src/Traits/RefreshesPermissionCache.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegrationAssertPostConditions' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegrationAssertPostConditions.php',

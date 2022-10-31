@@ -186,7 +186,7 @@ return [
         /*
          * Package Service Providers...
          */
-     
+        Maklad\Permission\PermissionServiceProvider::class,
         /*
          * Application Service Providers...
          */
